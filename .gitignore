@@ -1,0 +1,8 @@
+.vs
+.vscode
+.idea
+*.user
+
+
+**/bin
+**/obj
