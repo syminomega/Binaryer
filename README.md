@@ -1,8 +1,9 @@
-# SyminStudio.Binaryer - 二进制序列化源生成器
+# Binaryer - 二进制序列化源生成器
 
 ## 概述
 
 这是一个基于 C# Source Generator 的二进制序列化框架，通过 Attribute 标注自动生成高效的二进制读写代码。设计目标是简化二进制数据格式的处理，特别适用于需要精确控制二进制布局的场景。
+> 注意：此项目目前处于开发阶段，`ReadFromStream`方法基本通过测试，`WriteToStream`方法仍在完善中。
 
 ## 主要特性
 
@@ -14,7 +15,7 @@
 ### 2. 属性序列化 (`BinaryProperty`)
 - 支持基本类型：`int`, `double`, `float`, `bool`, `byte`, `char` 等
 - 支持字符串和字节数组
-- 支持固定长度和自动长度检测
+- 支持固定长度（测试中）和自动长度检测
 - 支持从属性或方法获取长度
 
 ```csharp
@@ -25,13 +26,13 @@ public int Value { get; set; }
 public double AutoSize { get; set; }
 ```
 
-### 3. 跳过字节 (`SkipBytes`)
+### 3. 跳过字节 (`BinarySkip`)
 - 在序列化时插入指定字节数的填充
 - 在反序列化时跳过指定字节数
 - 支持固定长度和动态长度
 
 ```csharp
-[SkipBytes(Length = 4)] // 跳过 4 字节
+[BinarySkip(Length = 4)] // 跳过 4 字节
 [BinaryProperty]
 public int ValueAfterSkip { get; set; }
 ```
@@ -151,36 +152,6 @@ public partial class ComplexBinaryFormat
 - 完整的错误处理
 - 大小端序自动处理（使用 BitConverter）
 - 字符串编码统一使用 UTF-8
-
-## 项目结构
-
-```
-SyminStudio.Binaryer/
-├── SyminStudio.Binaryer/           # 源生成器核心
-│   ├── BinarySerializationGenerator.cs
-│   └── SyminStudio.Binaryer.csproj
-├── SyminStudio.Binaryer.Sample/    # 使用示例
-│   ├── BinVbf.cs
-│   ├── TestModel.cs
-│   └── SyminStudio.Binaryer.Sample.csproj
-├── SyminStudio.Binaryer.Tests/     # 单元测试
-│   ├── BinarySerializationTests.cs
-│   └── SyminStudio.Binaryer.Tests.csproj
-└── SyminStudio.Binaryer.ConsoleTest/ # 控制台测试
-    ├── Program.cs
-    ├── ComplexTest.cs
-    └── SyminStudio.Binaryer.ConsoleTest.csproj
-```
-
-## 测试结果
-
-所有功能都通过了完整的单元测试验证：
-
-✅ 基础类型序列化测试  
-✅ 条件序列化测试（有条件和无条件）  
-✅ 重复序列化测试  
-✅ 跳过字节功能测试  
-✅ 二进制大小跟踪测试  
 
 ## 性能特点
 

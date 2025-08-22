@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <IsPackable>false</IsPackable>
+        <IsPackable>true</IsPackable>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
 
@@ -11,7 +11,21 @@
 
         <RootNamespace>SyminStudio.Binaryer</RootNamespace>
         <PackageId>SyminStudio.Binaryer</PackageId>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Version>0.1.0</Version>
+        <Title>Binaryer</Title>
+        <Authors>Symin</Authors>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <RepositoryUrl>https://github.com/syminomega/Binaryer</RepositoryUrl>
+        <Description>Source generator for binary stream serialization</Description>
+
+        <PackageReleaseNotes>Basic read function generator</PackageReleaseNotes>
     </PropertyGroup>
+
+	<!--release-->
+	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4">
@@ -22,5 +36,8 @@
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.3.0"/>
     </ItemGroup>
 
+	<ItemGroup>
+		<None Include="..\..\README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
 
 </Project>
