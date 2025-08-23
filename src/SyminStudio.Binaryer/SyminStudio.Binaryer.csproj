@@ -8,11 +8,13 @@
 
         <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
         <IsRoslynComponent>true</IsRoslynComponent>
+        <!--anylzer settings-->
+        <IncludeBuildOutput>false</IncludeBuildOutput>
 
         <RootNamespace>SyminStudio.Binaryer</RootNamespace>
         <PackageId>SyminStudio.Binaryer</PackageId>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Version>0.1.0</Version>
+        <Version>0.2.0</Version>
         <Title>Binaryer</Title>
         <Authors>Symin</Authors>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -22,10 +24,10 @@
         <PackageReleaseNotes>Basic read function generator</PackageReleaseNotes>
     </PropertyGroup>
 
-	<!--release-->
-	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-		<PackageReadmeFile>README.md</PackageReadmeFile>
-	</PropertyGroup>
+    <!--release-->
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+    </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4">
@@ -36,8 +38,13 @@
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.3.0"/>
     </ItemGroup>
 
-	<ItemGroup>
-		<None Include="..\..\README.md" Pack="true" PackagePath="\" />
-	</ItemGroup>
+    <ItemGroup>
+        <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
+        <!--anylzer settings-->
+        <None Include="$(OutputPath)\$(AssemblyName).dll"
+              Pack="true"
+              PackagePath="analyzers/dotnet/cs"
+              Visible="false"/>
+    </ItemGroup>
 
 </Project>
